@@ -3,7 +3,7 @@
 ##################################################
 # GNU Radio Python Flow Graph
 # Title: Top Block
-# Generated: Wed Mar  8 10:00:01 2017
+# Generated: Wed Mar  8 18:56:48 2017
 ##################################################
 
 if __name__ == '__main__':
@@ -84,8 +84,8 @@ class top_block(gr.top_block, Qt.QWidget):
         self.rtlsdr_source_0.set_bandwidth(10000, 0)
           
         self.rational_resampler_xxx_0 = filter.rational_resampler_fff(
-                interpolation=4,
-                decimation=3,
+                interpolation=1,
+                decimation=1,
                 taps=None,
                 fractional_bw=0.45,
         )
@@ -94,38 +94,48 @@ class top_block(gr.top_block, Qt.QWidget):
         self.qtgui_tab_widget_0_layout_0 = Qt.QBoxLayout(Qt.QBoxLayout.TopToBottom, self.qtgui_tab_widget_0_widget_0)
         self.qtgui_tab_widget_0_grid_layout_0 = Qt.QGridLayout()
         self.qtgui_tab_widget_0_layout_0.addLayout(self.qtgui_tab_widget_0_grid_layout_0)
-        self.qtgui_tab_widget_0.addTab(self.qtgui_tab_widget_0_widget_0, "Time")
+        self.qtgui_tab_widget_0.addTab(self.qtgui_tab_widget_0_widget_0, "LPDemodulatedSignal")
         self.qtgui_tab_widget_0_widget_1 = Qt.QWidget()
         self.qtgui_tab_widget_0_layout_1 = Qt.QBoxLayout(Qt.QBoxLayout.TopToBottom, self.qtgui_tab_widget_0_widget_1)
         self.qtgui_tab_widget_0_grid_layout_1 = Qt.QGridLayout()
         self.qtgui_tab_widget_0_layout_1.addLayout(self.qtgui_tab_widget_0_grid_layout_1)
-        self.qtgui_tab_widget_0.addTab(self.qtgui_tab_widget_0_widget_1, "Frequency")
+        self.qtgui_tab_widget_0.addTab(self.qtgui_tab_widget_0_widget_1, "FrequencyDomainOfDemodulatedSignal")
+        self.qtgui_tab_widget_0_widget_2 = Qt.QWidget()
+        self.qtgui_tab_widget_0_layout_2 = Qt.QBoxLayout(Qt.QBoxLayout.TopToBottom, self.qtgui_tab_widget_0_widget_2)
+        self.qtgui_tab_widget_0_grid_layout_2 = Qt.QGridLayout()
+        self.qtgui_tab_widget_0_layout_2.addLayout(self.qtgui_tab_widget_0_grid_layout_2)
+        self.qtgui_tab_widget_0.addTab(self.qtgui_tab_widget_0_widget_2, "TimeRepresentationOfCarrier")
+        self.qtgui_tab_widget_0_widget_3 = Qt.QWidget()
+        self.qtgui_tab_widget_0_layout_3 = Qt.QBoxLayout(Qt.QBoxLayout.TopToBottom, self.qtgui_tab_widget_0_widget_3)
+        self.qtgui_tab_widget_0_grid_layout_3 = Qt.QGridLayout()
+        self.qtgui_tab_widget_0_layout_3.addLayout(self.qtgui_tab_widget_0_grid_layout_3)
+        self.qtgui_tab_widget_0.addTab(self.qtgui_tab_widget_0_widget_3, "TimeDomainForDemodSignal")
         self.top_layout.addWidget(self.qtgui_tab_widget_0)
         self.low_pass_filter_0 = filter.fir_filter_ccf(1, firdes.low_pass(
         	1, samp_rate, 10, 1, firdes.WIN_HAMMING, 6.76))
         self.blocks_multiply_xx_0_0 = blocks.multiply_vcc(1)
         self.blocks_multiply_const_vxx_0 = blocks.multiply_const_vff((2, ))
         self.blocks_complex_to_mag_0 = blocks.complex_to_mag(1)
-        self.analog_sig_source_x_0_0 = analog.sig_source_c(samp_rate, analog.GR_COS_WAVE, 434.015e6, 1, 0)
-        self.Time_0 = qtgui.time_sink_c(
+        self.analog_sig_source_x_0_0 = analog.sig_source_c(samp_rate, analog.GR_SIN_WAVE, 434.015e6, 1, 0)
+        self.TimeRepresentationOfCarrier_0 = qtgui.time_sink_c(
         	1024, #size
         	samp_rate, #samp_rate
         	"", #name
         	1 #number of inputs
         )
-        self.Time_0.set_update_time(0.10)
-        self.Time_0.set_y_axis(-1, 1)
+        self.TimeRepresentationOfCarrier_0.set_update_time(0.10)
+        self.TimeRepresentationOfCarrier_0.set_y_axis(-1, 1)
         
-        self.Time_0.set_y_label("Amplitude", "")
+        self.TimeRepresentationOfCarrier_0.set_y_label("Amplitude", "")
         
-        self.Time_0.enable_tags(-1, True)
-        self.Time_0.set_trigger_mode(qtgui.TRIG_MODE_AUTO, qtgui.TRIG_SLOPE_POS, 0.0, 0, 0, "")
-        self.Time_0.enable_autoscale(True)
-        self.Time_0.enable_grid(True)
-        self.Time_0.enable_control_panel(True)
+        self.TimeRepresentationOfCarrier_0.enable_tags(-1, True)
+        self.TimeRepresentationOfCarrier_0.set_trigger_mode(qtgui.TRIG_MODE_FREE, qtgui.TRIG_SLOPE_POS, 0.0, 0, 0, "")
+        self.TimeRepresentationOfCarrier_0.enable_autoscale(True)
+        self.TimeRepresentationOfCarrier_0.enable_grid(True)
+        self.TimeRepresentationOfCarrier_0.enable_control_panel(True)
         
         if not True:
-          self.Time_0.disable_legend()
+          self.TimeRepresentationOfCarrier_0.disable_legend()
         
         labels = ["", "", "", "", "",
                   "", "", "", "", ""]
@@ -143,38 +153,87 @@ class top_block(gr.top_block, Qt.QWidget):
         for i in xrange(2*1):
             if len(labels[i]) == 0:
                 if(i % 2 == 0):
-                    self.Time_0.set_line_label(i, "Re{{Data {0}}}".format(i/2))
+                    self.TimeRepresentationOfCarrier_0.set_line_label(i, "Re{{Data {0}}}".format(i/2))
                 else:
-                    self.Time_0.set_line_label(i, "Im{{Data {0}}}".format(i/2))
+                    self.TimeRepresentationOfCarrier_0.set_line_label(i, "Im{{Data {0}}}".format(i/2))
             else:
-                self.Time_0.set_line_label(i, labels[i])
-            self.Time_0.set_line_width(i, widths[i])
-            self.Time_0.set_line_color(i, colors[i])
-            self.Time_0.set_line_style(i, styles[i])
-            self.Time_0.set_line_marker(i, markers[i])
-            self.Time_0.set_line_alpha(i, alphas[i])
+                self.TimeRepresentationOfCarrier_0.set_line_label(i, labels[i])
+            self.TimeRepresentationOfCarrier_0.set_line_width(i, widths[i])
+            self.TimeRepresentationOfCarrier_0.set_line_color(i, colors[i])
+            self.TimeRepresentationOfCarrier_0.set_line_style(i, styles[i])
+            self.TimeRepresentationOfCarrier_0.set_line_marker(i, markers[i])
+            self.TimeRepresentationOfCarrier_0.set_line_alpha(i, alphas[i])
         
-        self._Time_0_win = sip.wrapinstance(self.Time_0.pyqwidget(), Qt.QWidget)
-        self.top_layout.addWidget(self._Time_0_win)
-        self.Time = qtgui.time_sink_f(
+        self._TimeRepresentationOfCarrier_0_win = sip.wrapinstance(self.TimeRepresentationOfCarrier_0.pyqwidget(), Qt.QWidget)
+        self.top_layout.addWidget(self._TimeRepresentationOfCarrier_0_win)
+        self.TimeRepresentationOfCarrier = qtgui.time_sink_c(
         	1024, #size
         	samp_rate, #samp_rate
         	"", #name
         	1 #number of inputs
         )
-        self.Time.set_update_time(0.10)
-        self.Time.set_y_axis(-1, 1)
+        self.TimeRepresentationOfCarrier.set_update_time(0.10)
+        self.TimeRepresentationOfCarrier.set_y_axis(-1, 1)
         
-        self.Time.set_y_label("Amplitude", "")
+        self.TimeRepresentationOfCarrier.set_y_label("Amplitude", "")
         
-        self.Time.enable_tags(-1, True)
-        self.Time.set_trigger_mode(qtgui.TRIG_MODE_AUTO, qtgui.TRIG_SLOPE_POS, 0.0, 0, 0, "")
-        self.Time.enable_autoscale(True)
-        self.Time.enable_grid(True)
-        self.Time.enable_control_panel(True)
+        self.TimeRepresentationOfCarrier.enable_tags(-1, True)
+        self.TimeRepresentationOfCarrier.set_trigger_mode(qtgui.TRIG_MODE_FREE, qtgui.TRIG_SLOPE_POS, 0.0, 0, 0, "")
+        self.TimeRepresentationOfCarrier.enable_autoscale(True)
+        self.TimeRepresentationOfCarrier.enable_grid(True)
+        self.TimeRepresentationOfCarrier.enable_control_panel(True)
         
         if not True:
-          self.Time.disable_legend()
+          self.TimeRepresentationOfCarrier.disable_legend()
+        
+        labels = ["", "", "", "", "",
+                  "", "", "", "", ""]
+        widths = [1, 1, 1, 1, 1,
+                  1, 1, 1, 1, 1]
+        colors = ["blue", "red", "green", "black", "cyan",
+                  "magenta", "yellow", "dark red", "dark green", "blue"]
+        styles = [1, 1, 1, 1, 1,
+                  1, 1, 1, 1, 1]
+        markers = [-1, -1, -1, -1, -1,
+                   -1, -1, -1, -1, -1]
+        alphas = [1.0, 1.0, 1.0, 1.0, 1.0,
+                  1.0, 1.0, 1.0, 1.0, 1.0]
+        
+        for i in xrange(2*1):
+            if len(labels[i]) == 0:
+                if(i % 2 == 0):
+                    self.TimeRepresentationOfCarrier.set_line_label(i, "Re{{Data {0}}}".format(i/2))
+                else:
+                    self.TimeRepresentationOfCarrier.set_line_label(i, "Im{{Data {0}}}".format(i/2))
+            else:
+                self.TimeRepresentationOfCarrier.set_line_label(i, labels[i])
+            self.TimeRepresentationOfCarrier.set_line_width(i, widths[i])
+            self.TimeRepresentationOfCarrier.set_line_color(i, colors[i])
+            self.TimeRepresentationOfCarrier.set_line_style(i, styles[i])
+            self.TimeRepresentationOfCarrier.set_line_marker(i, markers[i])
+            self.TimeRepresentationOfCarrier.set_line_alpha(i, alphas[i])
+        
+        self._TimeRepresentationOfCarrier_win = sip.wrapinstance(self.TimeRepresentationOfCarrier.pyqwidget(), Qt.QWidget)
+        self.top_layout.addWidget(self._TimeRepresentationOfCarrier_win)
+        self.TimeDomainForDemodSignal = qtgui.time_sink_f(
+        	1024, #size
+        	samp_rate, #samp_rate
+        	"", #name
+        	1 #number of inputs
+        )
+        self.TimeDomainForDemodSignal.set_update_time(0.10)
+        self.TimeDomainForDemodSignal.set_y_axis(-1, 1)
+        
+        self.TimeDomainForDemodSignal.set_y_label("Amplitude", "")
+        
+        self.TimeDomainForDemodSignal.enable_tags(-1, True)
+        self.TimeDomainForDemodSignal.set_trigger_mode(qtgui.TRIG_MODE_FREE, qtgui.TRIG_SLOPE_POS, 0.0, 0, 0, "")
+        self.TimeDomainForDemodSignal.enable_autoscale(True)
+        self.TimeDomainForDemodSignal.enable_grid(True)
+        self.TimeDomainForDemodSignal.enable_control_panel(True)
+        
+        if not True:
+          self.TimeDomainForDemodSignal.disable_legend()
         
         labels = ["", "", "", "", "",
                   "", "", "", "", ""]
@@ -191,38 +250,38 @@ class top_block(gr.top_block, Qt.QWidget):
         
         for i in xrange(1):
             if len(labels[i]) == 0:
-                self.Time.set_line_label(i, "Data {0}".format(i))
+                self.TimeDomainForDemodSignal.set_line_label(i, "Data {0}".format(i))
             else:
-                self.Time.set_line_label(i, labels[i])
-            self.Time.set_line_width(i, widths[i])
-            self.Time.set_line_color(i, colors[i])
-            self.Time.set_line_style(i, styles[i])
-            self.Time.set_line_marker(i, markers[i])
-            self.Time.set_line_alpha(i, alphas[i])
+                self.TimeDomainForDemodSignal.set_line_label(i, labels[i])
+            self.TimeDomainForDemodSignal.set_line_width(i, widths[i])
+            self.TimeDomainForDemodSignal.set_line_color(i, colors[i])
+            self.TimeDomainForDemodSignal.set_line_style(i, styles[i])
+            self.TimeDomainForDemodSignal.set_line_marker(i, markers[i])
+            self.TimeDomainForDemodSignal.set_line_alpha(i, alphas[i])
         
-        self._Time_win = sip.wrapinstance(self.Time.pyqwidget(), Qt.QWidget)
-        self.top_layout.addWidget(self._Time_win)
-        self.Frequency_0 = qtgui.freq_sink_c(
+        self._TimeDomainForDemodSignal_win = sip.wrapinstance(self.TimeDomainForDemodSignal.pyqwidget(), Qt.QWidget)
+        self.top_layout.addWidget(self._TimeDomainForDemodSignal_win)
+        self.LPDemodulatedSignal_0 = qtgui.freq_sink_c(
         	1024, #size
         	firdes.WIN_BLACKMAN_hARRIS, #wintype
         	0, #fc
-        	1000e6, #bw
+        	1e9, #bw
         	"", #name
         	1 #number of inputs
         )
-        self.Frequency_0.set_update_time(0.10)
-        self.Frequency_0.set_y_axis(-140, 10)
-        self.Frequency_0.set_trigger_mode(qtgui.TRIG_MODE_NORM, 0.0, 0, "")
-        self.Frequency_0.enable_autoscale(True)
-        self.Frequency_0.enable_grid(True)
-        self.Frequency_0.set_fft_average(1.0)
-        self.Frequency_0.enable_control_panel(True)
+        self.LPDemodulatedSignal_0.set_update_time(0.10)
+        self.LPDemodulatedSignal_0.set_y_axis(-140, 10)
+        self.LPDemodulatedSignal_0.set_trigger_mode(qtgui.TRIG_MODE_FREE, 0.0, 0, "")
+        self.LPDemodulatedSignal_0.enable_autoscale(True)
+        self.LPDemodulatedSignal_0.enable_grid(True)
+        self.LPDemodulatedSignal_0.set_fft_average(1.0)
+        self.LPDemodulatedSignal_0.enable_control_panel(True)
         
         if not True:
-          self.Frequency_0.disable_legend()
+          self.LPDemodulatedSignal_0.disable_legend()
         
         if "complex" == "float" or "complex" == "msg_float":
-          self.Frequency_0.set_plot_pos_half(not True)
+          self.LPDemodulatedSignal_0.set_plot_pos_half(not True)
         
         labels = ["", "", "", "", "",
                   "", "", "", "", ""]
@@ -234,16 +293,16 @@ class top_block(gr.top_block, Qt.QWidget):
                   1.0, 1.0, 1.0, 1.0, 1.0]
         for i in xrange(1):
             if len(labels[i]) == 0:
-                self.Frequency_0.set_line_label(i, "Data {0}".format(i))
+                self.LPDemodulatedSignal_0.set_line_label(i, "Data {0}".format(i))
             else:
-                self.Frequency_0.set_line_label(i, labels[i])
-            self.Frequency_0.set_line_width(i, widths[i])
-            self.Frequency_0.set_line_color(i, colors[i])
-            self.Frequency_0.set_line_alpha(i, alphas[i])
+                self.LPDemodulatedSignal_0.set_line_label(i, labels[i])
+            self.LPDemodulatedSignal_0.set_line_width(i, widths[i])
+            self.LPDemodulatedSignal_0.set_line_color(i, colors[i])
+            self.LPDemodulatedSignal_0.set_line_alpha(i, alphas[i])
         
-        self._Frequency_0_win = sip.wrapinstance(self.Frequency_0.pyqwidget(), Qt.QWidget)
-        self.top_layout.addWidget(self._Frequency_0_win)
-        self.Frequency = qtgui.freq_sink_c(
+        self._LPDemodulatedSignal_0_win = sip.wrapinstance(self.LPDemodulatedSignal_0.pyqwidget(), Qt.QWidget)
+        self.top_layout.addWidget(self._LPDemodulatedSignal_0_win)
+        self.LPDemodulatedSignal = qtgui.freq_sink_c(
         	1024, #size
         	firdes.WIN_BLACKMAN_hARRIS, #wintype
         	0, #fc
@@ -251,19 +310,19 @@ class top_block(gr.top_block, Qt.QWidget):
         	"", #name
         	1 #number of inputs
         )
-        self.Frequency.set_update_time(0.10)
-        self.Frequency.set_y_axis(-140, 10)
-        self.Frequency.set_trigger_mode(qtgui.TRIG_MODE_NORM, 0.0, 0, "")
-        self.Frequency.enable_autoscale(True)
-        self.Frequency.enable_grid(True)
-        self.Frequency.set_fft_average(1.0)
-        self.Frequency.enable_control_panel(True)
+        self.LPDemodulatedSignal.set_update_time(0.10)
+        self.LPDemodulatedSignal.set_y_axis(-140, 10)
+        self.LPDemodulatedSignal.set_trigger_mode(qtgui.TRIG_MODE_FREE, 0.0, 0, "")
+        self.LPDemodulatedSignal.enable_autoscale(True)
+        self.LPDemodulatedSignal.enable_grid(True)
+        self.LPDemodulatedSignal.set_fft_average(1.0)
+        self.LPDemodulatedSignal.enable_control_panel(True)
         
         if not True:
-          self.Frequency.disable_legend()
+          self.LPDemodulatedSignal.disable_legend()
         
         if "complex" == "float" or "complex" == "msg_float":
-          self.Frequency.set_plot_pos_half(not True)
+          self.LPDemodulatedSignal.set_plot_pos_half(not True)
         
         labels = ["", "", "", "", "",
                   "", "", "", "", ""]
@@ -275,28 +334,71 @@ class top_block(gr.top_block, Qt.QWidget):
                   1.0, 1.0, 1.0, 1.0, 1.0]
         for i in xrange(1):
             if len(labels[i]) == 0:
-                self.Frequency.set_line_label(i, "Data {0}".format(i))
+                self.LPDemodulatedSignal.set_line_label(i, "Data {0}".format(i))
             else:
-                self.Frequency.set_line_label(i, labels[i])
-            self.Frequency.set_line_width(i, widths[i])
-            self.Frequency.set_line_color(i, colors[i])
-            self.Frequency.set_line_alpha(i, alphas[i])
+                self.LPDemodulatedSignal.set_line_label(i, labels[i])
+            self.LPDemodulatedSignal.set_line_width(i, widths[i])
+            self.LPDemodulatedSignal.set_line_color(i, colors[i])
+            self.LPDemodulatedSignal.set_line_alpha(i, alphas[i])
         
-        self._Frequency_win = sip.wrapinstance(self.Frequency.pyqwidget(), Qt.QWidget)
-        self.top_layout.addWidget(self._Frequency_win)
+        self._LPDemodulatedSignal_win = sip.wrapinstance(self.LPDemodulatedSignal.pyqwidget(), Qt.QWidget)
+        self.top_layout.addWidget(self._LPDemodulatedSignal_win)
+        self.FrequencyDomainOfDemodulatedSignal = qtgui.freq_sink_c(
+        	1024, #size
+        	firdes.WIN_BLACKMAN_hARRIS, #wintype
+        	0, #fc
+        	1000e6, #bw
+        	"", #name
+        	1 #number of inputs
+        )
+        self.FrequencyDomainOfDemodulatedSignal.set_update_time(0.10)
+        self.FrequencyDomainOfDemodulatedSignal.set_y_axis(-140, 10)
+        self.FrequencyDomainOfDemodulatedSignal.set_trigger_mode(qtgui.TRIG_MODE_FREE, 0.0, 0, "")
+        self.FrequencyDomainOfDemodulatedSignal.enable_autoscale(True)
+        self.FrequencyDomainOfDemodulatedSignal.enable_grid(True)
+        self.FrequencyDomainOfDemodulatedSignal.set_fft_average(1.0)
+        self.FrequencyDomainOfDemodulatedSignal.enable_control_panel(True)
+        
+        if not True:
+          self.FrequencyDomainOfDemodulatedSignal.disable_legend()
+        
+        if "complex" == "float" or "complex" == "msg_float":
+          self.FrequencyDomainOfDemodulatedSignal.set_plot_pos_half(not True)
+        
+        labels = ["", "", "", "", "",
+                  "", "", "", "", ""]
+        widths = [1, 1, 1, 1, 1,
+                  1, 1, 1, 1, 1]
+        colors = ["blue", "red", "green", "black", "cyan",
+                  "magenta", "yellow", "dark red", "dark green", "dark blue"]
+        alphas = [1.0, 1.0, 1.0, 1.0, 1.0,
+                  1.0, 1.0, 1.0, 1.0, 1.0]
+        for i in xrange(1):
+            if len(labels[i]) == 0:
+                self.FrequencyDomainOfDemodulatedSignal.set_line_label(i, "Data {0}".format(i))
+            else:
+                self.FrequencyDomainOfDemodulatedSignal.set_line_label(i, labels[i])
+            self.FrequencyDomainOfDemodulatedSignal.set_line_width(i, widths[i])
+            self.FrequencyDomainOfDemodulatedSignal.set_line_color(i, colors[i])
+            self.FrequencyDomainOfDemodulatedSignal.set_line_alpha(i, alphas[i])
+        
+        self._FrequencyDomainOfDemodulatedSignal_win = sip.wrapinstance(self.FrequencyDomainOfDemodulatedSignal.pyqwidget(), Qt.QWidget)
+        self.top_layout.addWidget(self._FrequencyDomainOfDemodulatedSignal_win)
 
         ##################################################
         # Connections
         ##################################################
-        self.connect((self.analog_sig_source_x_0_0, 0), (self.Time_0, 0))    
+        self.connect((self.analog_sig_source_x_0_0, 0), (self.TimeRepresentationOfCarrier, 0))    
         self.connect((self.analog_sig_source_x_0_0, 0), (self.blocks_multiply_xx_0_0, 1))    
         self.connect((self.blocks_complex_to_mag_0, 0), (self.blocks_multiply_const_vxx_0, 0))    
         self.connect((self.blocks_multiply_const_vxx_0, 0), (self.rational_resampler_xxx_0, 0))    
-        self.connect((self.blocks_multiply_xx_0_0, 0), (self.Frequency_0, 0))    
+        self.connect((self.blocks_multiply_xx_0_0, 0), (self.FrequencyDomainOfDemodulatedSignal, 0))    
         self.connect((self.blocks_multiply_xx_0_0, 0), (self.low_pass_filter_0, 0))    
-        self.connect((self.low_pass_filter_0, 0), (self.Frequency, 0))    
+        self.connect((self.low_pass_filter_0, 0), (self.LPDemodulatedSignal, 0))    
         self.connect((self.low_pass_filter_0, 0), (self.blocks_complex_to_mag_0, 0))    
-        self.connect((self.rational_resampler_xxx_0, 0), (self.Time, 0))    
+        self.connect((self.rational_resampler_xxx_0, 0), (self.TimeDomainForDemodSignal, 0))    
+        self.connect((self.rtlsdr_source_0, 0), (self.LPDemodulatedSignal_0, 0))    
+        self.connect((self.rtlsdr_source_0, 0), (self.TimeRepresentationOfCarrier_0, 0))    
         self.connect((self.rtlsdr_source_0, 0), (self.blocks_multiply_xx_0_0, 0))    
 
     def closeEvent(self, event):
@@ -310,11 +412,12 @@ class top_block(gr.top_block, Qt.QWidget):
 
     def set_samp_rate(self, samp_rate):
         self.samp_rate = samp_rate
-        self.Frequency.set_frequency_range(0, self.samp_rate)
-        self.Time.set_samp_rate(self.samp_rate)
+        self.LPDemodulatedSignal.set_frequency_range(0, self.samp_rate)
+        self.TimeDomainForDemodSignal.set_samp_rate(self.samp_rate)
+        self.TimeRepresentationOfCarrier.set_samp_rate(self.samp_rate)
+        self.TimeRepresentationOfCarrier_0.set_samp_rate(self.samp_rate)
         self.analog_sig_source_x_0_0.set_sampling_freq(self.samp_rate)
         self.low_pass_filter_0.set_taps(firdes.low_pass(1, self.samp_rate, 10, 1, firdes.WIN_HAMMING, 6.76))
-        self.Time_0.set_samp_rate(self.samp_rate)
         self.rtlsdr_source_0.set_sample_rate(self.samp_rate)
 
     def get_freq(self):
