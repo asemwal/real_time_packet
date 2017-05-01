@@ -420,10 +420,10 @@ bool RH_ASK::send(const uint8_t* data, uint8_t len)
     // Caution: VW expects the _ones_complement_ of the CCITT CRC-16 as the FCS
     // VW sends FCS as low byte then hi byte
     crc = ~crc;
-    p[index++] = symbols[(crc >> 4)  & 0xf];
-    p[index++] = symbols[crc & 0xf];
-    p[index++] = symbols[(crc >> 12) & 0xf];
-    p[index++] = symbols[(crc >> 8)  & 0xf];
+    p[index++] = symbols[(crc >> 4)  & 0xf]; // p[12] = symbol[5] 
+    p[index++] = symbols[crc & 0xf]; // p[13] = symbol[15]
+    p[index++] = symbols[(crc >> 12) & 0xf]; // p[14] = symbol[14]
+    p[index++] = symbols[(crc >> 8)  & 0xf]; //p[15] = symbol [6]
 
     // Total number of 6-bit symbols to send
     _txBufLen = index + RH_ASK_PREAMBLE_LEN; //_txBufLen = 16 + 8 = 24
